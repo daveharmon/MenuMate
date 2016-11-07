@@ -8,31 +8,29 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UISearchBarDelegate {
     //MARK: Properties
     @IBOutlet weak var queryBar: UISearchBar!
-    
-    var textFieldValue="";
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        //handle the search bar actions here
-        if ((queryBar.delegate?.searchBarTextDidEndEditing) != nil){
-            
-            //get the text value from the field
-            textFieldValue=(queryBar.delegate?.description)!
-        }
-        
-        print(textFieldValue)
+        //setup delegates
+        queryBar.delegate = self;
     }
-
+    
+    //a method that gathers the text from the search field when the user finishes editing
+    func searchBar(_ searchBar: UISearchBar, searchBarDidEndEditing searchText: String) {
+        
+        print(searchText)
+        
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
 
 }
 
