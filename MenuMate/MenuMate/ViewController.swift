@@ -12,7 +12,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     //MARK: Properties
     @IBOutlet var searchField: UITextField!
 
-    var query=""      //the string of the query
+    var query: String=""      //the string of the query
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,28 +32,25 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: UITextFieldDelegate
     //a function that resigns the first responder status when the keyboard is escaped
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // Hide the keyboard.
-        switch textField {
-        case searchField:
-            searchField.resignFirstResponder()
-        default:
-            textField.resignFirstResponder()
-        }
+        textField.resignFirstResponder()
         return true
     }
     
     //a function that updates the query text when the return key is pressed
-    func textFieldShouldEndEditing(textField: UITextField) {
+    func textFieldShouldEndEditing(_ textField: UITextField){
         
         switch textField{
             
         case searchField:
-            query = textField.text!
-            print(query)
-            
+            if (searchField.text != nil){
+                query=searchField.text!
+                print(query)
+            }
         default:
             break
+       
         }
     }
 
