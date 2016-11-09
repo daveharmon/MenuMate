@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import ConversationV1
+import AVFoundation
 
 class ViewController: UIViewController, UITextFieldDelegate {
     //MARK: Properties
@@ -20,16 +22,31 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         
         searchField.delegate=self;
-        //setup the default values of the text field
-        searchField.clearsOnBeginEditing=true;
-        searchField.clearsOnInsertion=true;
+        
+        
+        //code for the IBM Bluemix Conversation Service
+        let username = "your-username-here"
+        let password = "your-password-here"
+        let version = "YYYY-MM-DD" // use today's date for the most recent version
+        let conversation = Conversation(username: username, password: password, version: version)
+        
+        let workspaceID = "your-workspace-id-here"
+        let failure = { (error: Error) in print(error) }
+        var context: Context? // save context to continue conversation
+        conversation.message(withWorkspace: workspaceID, failure: failure) { response in
+            print(response.output.text)
+            context = response.context
+        }
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        textField.text=nil;
+        return true
+    }
     //MARK: UITextFieldDelegate
     //a function that resigns the first responder status when the keyboard is escaped
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

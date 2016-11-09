@@ -12,6 +12,8 @@
 		04001FF51DCFFB72001DA6D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04001FF31DCFFB72001DA6D9 /* Main.storyboard */; };
 		04001FF71DCFFB72001DA6D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04001FF61DCFFB72001DA6D9 /* Assets.xcassets */; };
 		04001FFA1DCFFB72001DA6D9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04001FF81DCFFB72001DA6D9 /* LaunchScreen.storyboard */; };
+		043017231DD2A1DE009AE8B7 /* ConversationV1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 043017221DD2A1DE009AE8B7 /* ConversationV1.framework */; };
+		043017251DD2A1F0009AE8B7 /* RestKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 043017241DD2A1F0009AE8B7 /* RestKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		04001FF61DCFFB72001DA6D9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04001FF91DCFFB72001DA6D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		04001FFB1DCFFB72001DA6D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		043017221DD2A1DE009AE8B7 /* ConversationV1.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ConversationV1.framework; path = Carthage/Build/iOS/ConversationV1.framework; sourceTree = "<group>"; };
+		043017241DD2A1F0009AE8B7 /* RestKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RestKit.framework; path = Carthage/Build/iOS/RestKit.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +33,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				043017251DD2A1F0009AE8B7 /* RestKit.framework in Frameworks */,
+				043017231DD2A1DE009AE8B7 /* ConversationV1.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +46,7 @@
 			children = (
 				04001FEE1DCFFB72001DA6D9 /* MenuMate */,
 				04001FED1DCFFB72001DA6D9 /* Products */,
+				043017211DD2A1DD009AE8B7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +71,15 @@
 			path = MenuMate;
 			sourceTree = "<group>";
 		};
+		043017211DD2A1DD009AE8B7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				043017241DD2A1F0009AE8B7 /* RestKit.framework */,
+				043017221DD2A1DE009AE8B7 /* ConversationV1.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,6 +90,7 @@
 				04001FE81DCFFB72001DA6D9 /* Sources */,
 				04001FE91DCFFB72001DA6D9 /* Frameworks */,
 				04001FEA1DCFFB72001DA6D9 /* Resources */,
+				043017261DD2A23A009AE8B7 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -130,6 +147,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		043017261DD2A23A009AE8B7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/RestKit.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/ConversationV1.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		04001FE81DCFFB72001DA6D9 /* Sources */ = {
@@ -258,6 +293,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = MenuMate/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = HCinc.MenuMate;
@@ -270,6 +309,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = MenuMate/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = HCinc.MenuMate;
