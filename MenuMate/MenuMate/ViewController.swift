@@ -106,10 +106,30 @@ class ViewController: UIViewController, UITextFieldDelegate {
             //continue the existing conversation with the   Watson agent
             let text = self.query
             let failure = { (error: Error) in print(error) }
+            
             var context:Context?;
+            
             let request = MessageRequest(text: text, context: context)
             conversation.message(withWorkspace: workspaceID, request: request, failure: failure, success:{ response in
-                print(response.output.text)
+                print(response.json)
+                
+                var station, day, meal:String;
+                //handle the entities
+                for entity in response.entities {
+                    if (entity.entity=="station"){
+                        station=entity.value
+                    }
+                    else if (entity.entity=="day"){
+                        day=entity.value
+                    }
+                }
+                for intent in response.intents{
+                    meal=intent.intent
+                }
+                
+                
+                //handle the database here
+                
                 context = response.context
             })
         }
