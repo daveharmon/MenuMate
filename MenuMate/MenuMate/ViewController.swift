@@ -21,11 +21,10 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate 
     @IBOutlet var resultsText: UITextView!
 
     var query: String = ""      //the string of the query, initially null
-//    let username = "b59c37bb-15e4-426e-8ce8-091744acd484";
-//    let password = "8HqlYHFNOU2o";
-//    let version = "2016-11-10";
     let workspaceID = "d6bc02c1-c3d6-4876-a43d-87a28fd6b75c";
     let conversation = Conversation(username: "b59c37bb-15e4-426e-8ce8-091744acd484", password: "8HqlYHFNOU2o", version: "2016-11-10");
+    
+    var toPrint:String=""
     
     override func viewDidLoad() {
         //load the view
@@ -72,6 +71,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate 
             if (searchField.text != nil){
                 query=searchField.text!
                 converse()
+                self.resultsText.text=self.toPrint
+                self.resultsText.setNeedsDisplay()
                 print(query)
             }
         default:
@@ -105,6 +106,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate 
             let failure = { (error: Error) in print(error) }
             
             var context:Context?;
+            var toPrint:[String]=[]
             
             let request = MessageRequest(text: text, context: context)
             conversation.message(withWorkspace: workspaceID, request: request, failure: failure, success:{ response in
@@ -133,14 +135,21 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate 
                 let dbName = "fooddata"
                 
                 let find = FindDocumentsOperation(selector: ["day":day, "meal":meal,"station":station], databaseName: dbName, fields: ["items"], documentFoundHandler: {(dict) in
-          
-                    self.resultsText.text = ""
-
+                    
+                    print("COMING HERE>>>>>>>>>>>>>>>>>>>>")
+//                    print(dict.debugDescription)
+//                    for current in dict["items"] as! [String]{
+//                        print(current)
+//                    }
+//                    
+//                    toPrint.append(contentsOf: (dict["items"] as! [String]))
                 })
+               
                 
                 client.add(operation: find)
                 context = response.context
             })
+            self.toPrint=toPrint.joined(separator: ",")
         }
     }
 }
