@@ -10,39 +10,49 @@ import UIKit
 import ConversationV1
 import AVFoundation
 
+//the class for the main view and all its components
 class ViewController: UIViewController, UITextFieldDelegate {
+    
     //MARK: Properties
     @IBOutlet var searchField: UITextField!
 
-    var query: String=""      //the string of the query
+    var query: String = ""      //the string of the query, initially null
     
+    //var ClassContext:Context      //variables for the class that represent interaction with Watson
+    //var ClassConversation:Conversation
+   
     override func viewDidLoad() {
+        //load the view
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
-        
+        //link the search bar to the code
         searchField.delegate=self;
         
         
         //code for the IBM Bluemix Conversation Service
-        let username = "your-username-here"
-        let password = "your-password-here"
-        let version = "YYYY-MM-DD" // use today's date for the most recent version
+        let username = "b59c37bb-15e4-426e-8ce8-091744acd484"
+        let password = "8HqlYHFNOU2o"
+        let version = "2016-11-10" // use today's date for the most recent version
         let conversation = Conversation(username: username, password: password, version: version)
+
         
-        let workspaceID = "your-workspace-id-here"
+        //initialize and interact with the conversation serice
+        let workspaceID = "d6bc02c1-c3d6-4876-a43d-87a28fd6b75c"
         let failure = { (error: Error) in print(error) }
         var context: Context? // save context to continue conversation
+
         conversation.message(withWorkspace: workspaceID, failure: failure) { response in
             print(response.output.text)
             context = response.context
         }
+        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         textField.text=nil;
         return true
@@ -70,6 +80,24 @@ class ViewController: UIViewController, UITextFieldDelegate {
        
         }
     }
-
+    
+    
+    //a function that defines the interaction of the query with the Watson conversation service
+    func converse(){
+        //check to see whether or not the user has or hasn't entered text to send to Watson
+        
+        if (self.query.isEmpty==false){
+            
+            //continue the existing conversation with the   Watson agent
+            let text = self.query
+            let failure = { (error: Error) in print(error) }
+            let request = MessageRequest(text: text, context: context)
+            conversation.message(withWorkspace: workspaceID,    request: request, failure: failure) {
+                response in
+                print(response.output.text)
+                context = response.context
+            }
+        }
+    }
 }
 
