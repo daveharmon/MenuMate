@@ -9,13 +9,16 @@
 import UIKit
 import ConversationV1
 import RestKit
-import AVFoundation
+import SwiftCloudant
 
 //the class for the main view and all its components
-class ViewController: UIViewController, UITextFieldDelegate {
+class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
     //MARK: Properties
     @IBOutlet var searchField: UITextField!
+    
+    var meals: [String] = []
+    @IBOutlet var resultsText: UITextView!
 
     var query: String = ""      //the string of the query, initially null
 //    let username = "b59c37bb-15e4-426e-8ce8-091744acd484";
@@ -24,32 +27,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
     let workspaceID = "d6bc02c1-c3d6-4876-a43d-87a28fd6b75c";
     let conversation = Conversation(username: "b59c37bb-15e4-426e-8ce8-091744acd484", password: "8HqlYHFNOU2o", version: "2016-11-10");
     
-//    
-//    required init?(coder:NSCoder){
-//        
-//        
-//        //code for the IBM Bluemix Conversation Service
-//        self.username = "b59c37bb-15e4-426e-8ce8-091744acd484"
-//        self.password = "8HqlYHFNOU2o"
-//        self.version = "2016-11-10" // use today's date for the most recent version
-//        self.conversation = Conversation(username: username, password: password, version: version)
-//        
-//        //initialize and interact with the conversation serice
-//        self.workspaceID = "d6bc02c1-c3d6-4876-a43d-87a28fd6b75c"
-//
-//        super.init(coder: coder)
-//    }
-
-//    override func awakeFromNib() {
-//        searchField.text = "Enter a Query!"
-//    }
-    
     override func viewDidLoad() {
         //load the view
         super.viewDidLoad()
         
         //link the search bar to the code
         searchField.delegate=self;
+        resultsText.delegate=self;
         
         let failure = { (error: Error) in print(error) }
         
@@ -59,7 +43,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             print("here")
             context = response.context
         })
-        
+        //self.mealTable.register(Meal.self, forCellReuseIdentifier: "meal")
     }
     
     override func didReceiveMemoryWarning() {
@@ -96,6 +80,19 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+//    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+//        return 0;
+//    }
+//    
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) ->Int {
+//        return meals.count;
+//    }
+//    
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "meal", for: indexPath as IndexPath) as! Meal
+//        cell.setLabel(text: meals[indexPath.row])
+//        return cell
+//    }
     
     //a function that defines the interaction of the query with the Watson conversation service
     func converse(){
@@ -113,7 +110,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
             conversation.message(withWorkspace: workspaceID, request: request, failure: failure, success:{ response in
                 print(response.json)
                 
-                var station, day, meal:String;
+                var station:String="";
+                var day:String="";
+                var meal:String="";
+                
                 //handle the entities
                 for entity in response.entities {
                     if (entity.entity=="station"){
@@ -127,9 +127,18 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     meal=intent.intent
                 }
                 
+                //query the database
+                let cloudantURL = URL(string:"https://0fc1924a-e31c-46ad-ba50-13fc5400577e-bluemix.cloudant.com")!
+                let client = CouchDBClient(url:cloudantURL, username:"0fc1924a-e31c-46ad-ba50-13fc5400577e-bluemix", password:"9f4054a1e8f0c1dd4ddadc7ed61d234eb9a463c95a86084ba8eb7b22151caaae")
+                let dbName = "fooddata"
                 
-                //handle the database here
+                let find = FindDocumentsOperation(selector: ["day":day, "meal":meal,"station":station], databaseName: dbName, fields: ["items"], documentFoundHandler: {(dict) in
+          
+                    self.resultsText.text = ""
+
+                })
                 
+                client.add(operation: find)
                 context = response.context
             })
         }

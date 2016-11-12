@@ -1,0 +1,5 @@
+project './MenuMate.xcodeproj'
+target 'MenuMate' do
+	pod 'SwiftCloudant', :git => 'https://github.com/cloudant/swift-cloudant.git'
+end
+use_frameworks!

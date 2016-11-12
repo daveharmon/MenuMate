@@ -1,0 +1,21 @@
+PODS:
+  - SwiftCloudant (0.6.0)
+
+DEPENDENCIES:
+  - SwiftCloudant (from `https://github.com/cloudant/swift-cloudant.git`)
+
+EXTERNAL SOURCES:
+  SwiftCloudant:
+    :git: https://github.com/cloudant/swift-cloudant.git
+
+CHECKOUT OPTIONS:
+  SwiftCloudant:
+    :commit: 5bcf53572917b876af20346a9804fbb522601284
+    :git: https://github.com/cloudant/swift-cloudant.git
+
+SPEC CHECKSUMS:
+  SwiftCloudant: c8427870e723c6a421c50326689719d570306951
+
+PODFILE CHECKSUM: 3c70c0afe04d83e544e9bde5e6f8225091c016d8
+
+COCOAPODS: 1.1.1

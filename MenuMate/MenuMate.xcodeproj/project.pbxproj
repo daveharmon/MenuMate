@@ -12,8 +12,11 @@
 		04001FF51DCFFB72001DA6D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04001FF31DCFFB72001DA6D9 /* Main.storyboard */; };
 		04001FF71DCFFB72001DA6D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04001FF61DCFFB72001DA6D9 /* Assets.xcassets */; };
 		04001FFA1DCFFB72001DA6D9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04001FF81DCFFB72001DA6D9 /* LaunchScreen.storyboard */; };
+		0423BC4D1DD7150E0025B77B /* Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0423BC4C1DD7150E0025B77B /* Meal.swift */; };
+		0423BC4F1DD722F60025B77B /* MealTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0423BC4E1DD722F60025B77B /* MealTableViewController.swift */; };
 		043017231DD2A1DE009AE8B7 /* ConversationV1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 043017221DD2A1DE009AE8B7 /* ConversationV1.framework */; };
 		043017251DD2A1F0009AE8B7 /* RestKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 043017241DD2A1F0009AE8B7 /* RestKit.framework */; };
+		E2E3E17DCD10D945F0FA50A8 /* Pods_MenuMate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D3ED9F7D019DD18A45437BD /* Pods_MenuMate.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,8 +27,14 @@
 		04001FF61DCFFB72001DA6D9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04001FF91DCFFB72001DA6D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		04001FFB1DCFFB72001DA6D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0423BC4C1DD7150E0025B77B /* Meal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
+		0423BC4E1DD722F60025B77B /* MealTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealTableViewController.swift; sourceTree = "<group>"; };
 		043017221DD2A1DE009AE8B7 /* ConversationV1.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ConversationV1.framework; path = Carthage/Build/iOS/ConversationV1.framework; sourceTree = "<group>"; };
 		043017241DD2A1F0009AE8B7 /* RestKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RestKit.framework; path = Carthage/Build/iOS/RestKit.framework; sourceTree = "<group>"; };
+		04B5052A1DD6F937005FD3B7 /* SwiftCloudant */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SwiftCloudant; path = Pods/SwiftCloudant/Source/SwiftCloudant; sourceTree = "<group>"; };
+		0A59DE837E9286CB2D823FE7 /* Pods-MenuMate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuMate.release.xcconfig"; path = "Pods/Target Support Files/Pods-MenuMate/Pods-MenuMate.release.xcconfig"; sourceTree = "<group>"; };
+		1D3ED9F7D019DD18A45437BD /* Pods_MenuMate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MenuMate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8410C92C771DFD0A7F1A4BD0 /* Pods-MenuMate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuMate.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MenuMate/Pods-MenuMate.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +44,7 @@
 			files = (
 				043017251DD2A1F0009AE8B7 /* RestKit.framework in Frameworks */,
 				043017231DD2A1DE009AE8B7 /* ConversationV1.framework in Frameworks */,
+				E2E3E17DCD10D945F0FA50A8 /* Pods_MenuMate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,9 +54,13 @@
 		04001FE31DCFFB72001DA6D9 = {
 			isa = PBXGroup;
 			children = (
+				0423BC4E1DD722F60025B77B /* MealTableViewController.swift */,
+				0423BC4C1DD7150E0025B77B /* Meal.swift */,
+				04B5052A1DD6F937005FD3B7 /* SwiftCloudant */,
 				04001FEE1DCFFB72001DA6D9 /* MenuMate */,
 				04001FED1DCFFB72001DA6D9 /* Products */,
 				043017211DD2A1DD009AE8B7 /* Frameworks */,
+				3F60D02EA45A7972E1723DB0 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -76,8 +90,18 @@
 			children = (
 				043017241DD2A1F0009AE8B7 /* RestKit.framework */,
 				043017221DD2A1DE009AE8B7 /* ConversationV1.framework */,
+				1D3ED9F7D019DD18A45437BD /* Pods_MenuMate.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3F60D02EA45A7972E1723DB0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8410C92C771DFD0A7F1A4BD0 /* Pods-MenuMate.debug.xcconfig */,
+				0A59DE837E9286CB2D823FE7 /* Pods-MenuMate.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -87,10 +111,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 04001FFE1DCFFB72001DA6D9 /* Build configuration list for PBXNativeTarget "MenuMate" */;
 			buildPhases = (
+				097CA45637E031BB2631B293 /* [CP] Check Pods Manifest.lock */,
 				04001FE81DCFFB72001DA6D9 /* Sources */,
 				04001FE91DCFFB72001DA6D9 /* Frameworks */,
 				04001FEA1DCFFB72001DA6D9 /* Resources */,
 				043017261DD2A23A009AE8B7 /* ShellScript */,
+				989FBE5AE226E15FC8EF8B74 /* [CP] Embed Pods Frameworks */,
+				54EA3E29DB53800DB0822FC4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -164,6 +191,51 @@
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
+		097CA45637E031BB2631B293 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		54EA3E29DB53800DB0822FC4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MenuMate/Pods-MenuMate-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		989FBE5AE226E15FC8EF8B74 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MenuMate/Pods-MenuMate-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -172,6 +244,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				04001FF21DCFFB72001DA6D9 /* ViewController.swift in Sources */,
+				0423BC4D1DD7150E0025B77B /* Meal.swift in Sources */,
+				0423BC4F1DD722F60025B77B /* MealTableViewController.swift in Sources */,
 				04001FF01DCFFB72001DA6D9 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -291,6 +365,7 @@
 		};
 		04001FFF1DCFFB72001DA6D9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8410C92C771DFD0A7F1A4BD0 /* Pods-MenuMate.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -307,6 +382,7 @@
 		};
 		040020001DCFFB72001DA6D9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0A59DE837E9286CB2D823FE7 /* Pods-MenuMate.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
