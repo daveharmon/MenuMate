@@ -6,6 +6,7 @@
 //  Copyright © 2016 HarmonCardwell. All rights reserved.
 //
 
+//import the necessary libraries and packages
 import UIKit
 import ConversationV1
 import RestKit
@@ -17,14 +18,20 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate 
     //MARK: Properties
     @IBOutlet var searchField: UITextField!
     
+    //global variables that are used to interact with the database and the view controller
     var meals: [String] = []
     var lock: Bool = true
     @IBOutlet var resultsText: UITextView!
-
+    
+    
     var query: String = ""      //the string of the query, initially null
+    
+    //setup the IBM Conversation Service
     let workspaceID = "d6bc02c1-c3d6-4876-a43d-87a28fd6b75c";
     let conversation = Conversation(username: "b59c37bb-15e4-426e-8ce8-091744acd484", password: "8HqlYHFNOU2o", version: "2016-11-10");
     
+    
+    //the string that will eventually fill the Text View
     var toPrint:String=""
     
     override func viewDidLoad() {
@@ -38,6 +45,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate 
         let failure = { (error: Error) in print(error) }
         
         //initialize and interact with the conversation serice
+        
         var context:Context?;
         conversation.message(withWorkspace: workspaceID, failure: failure, success: { response in
             print("here")
@@ -66,43 +74,48 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate 
     //a function that updates the query text when the return key is pressed
     func textFieldShouldEndEditing(_ textField: UITextField){
         
+        //check to see that the text bar being edited is the search bar
         switch textField{
             
         case searchField:
+            
+            //if the user has made a non-nil query
             if (searchField.text != nil){
+                
                 query=searchField.text!
+                
+                //call on converse to interact with the database
                 converse()
+                
+                //a spin lock that ensures correct timing with the asynchrnous function converse()
                 while (self.lock == true) {
                     print("spin");
                 }
+                
+                //otherwise set the text view to the current error message
                 if (self.meals == []) {
                     self.resultsText.text = self.toPrint
-                } else {
+                }
+                
+                //if there are meals to display
+                else {
                     self.resultsText.text=self.meals.joined(separator: ", \n")
                 }
+                
+                //update the text view
                 self.resultsText.setNeedsDisplay()
+                
+                //lock the thread until the app succesfully interacts with the database
                 self.lock = true
-                print(query)
+                
+                
+                print(query)    //print the query to the console...mainly for debugging
             }
         default:
             break
        
         }
     }
-    
-//    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-//        return 0;
-//    }
-//    
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) ->Int {
-//        return meals.count;
-//    }
-//    
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "meal", for: indexPath as IndexPath) as! Meal
-//        cell.setLabel(text: meals[indexPath.row])
-//        return cell
-//    }
     
     //a function that defines the interaction of the query with the Watson conversation service
     func converse(){
@@ -112,14 +125,17 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate 
             
             //continue the existing conversation with the   Watson agent
             let text = self.query
+            
+            //setup the message with Watson Conversation Service
             let failure = { (error: Error) in print(error) }
             
             var context:Context?;
             
             let request = MessageRequest(text: text, context: context)
             conversation.message(withWorkspace: workspaceID, request: request, failure: failure, success:{ response in
-                print(response.json)
+                //print(response.json)  //used for debugging
                 
+                //initialize the fields that we are looking for
                 var station:String="";
                 var day:String="";
                 var meal:String="";
@@ -128,9 +144,10 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate 
                 //handle the case where Watson doesn't pick up on the keywords
                 if (response.entities.count != 2 && response.intents.count != 1){
                     self.toPrint = "Watson could not find your input"
-                    self.lock = false
+                    self.lock = false   //unlock the thread
                     return
                 }
+                
                 //handle the entities
                 for entity in response.entities {
                     if (entity.entity=="station"){
@@ -140,6 +157,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate 
                         day=entity.value
                     }
                 }
+                
+                //hadle the intent of the user...which meal they are interested in
                 for intent in response.intents{
                     meal=intent.intent
                 }
@@ -150,15 +169,21 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate 
                 let dbName = "fooddata"
                 let find = FindDocumentsOperation(selector: ["day":day, "meal":meal,"station":station], databaseName: dbName, fields: ["items"], documentFoundHandler: {(dict) in
                     
+                    //save the array of Strings to a global variable
                     self.meals = dict["items"] as! [String]
-                    self.lock = false;
+                    self.lock = false;  //unlock the thread because the query was succesful
                 
                 }) {(response, httpInfo, error) in
+                    
+                    //handles errors from the database, such as losing connections
                     if let error = error {
                         self.meals = []
                         self.toPrint = error.localizedDescription
                         self.lock = false;
-                    } else if (self.lock != false) {
+                    }
+                    
+                    //if the query was succesful, but no documents were found
+                    else if (self.lock != false) {
                         self.meals = []
                         self.toPrint = "Document not found"
                         self.lock = false;
@@ -166,6 +191,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate 
                     }
                 }
                 
+                //update the attributes of the Watson Conversation
                 client.add(operation: find)
                 context = response.context
             })

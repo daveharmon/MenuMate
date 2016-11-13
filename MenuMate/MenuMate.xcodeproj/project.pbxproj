@@ -12,8 +12,6 @@
 		04001FF51DCFFB72001DA6D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04001FF31DCFFB72001DA6D9 /* Main.storyboard */; };
 		04001FF71DCFFB72001DA6D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04001FF61DCFFB72001DA6D9 /* Assets.xcassets */; };
 		04001FFA1DCFFB72001DA6D9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04001FF81DCFFB72001DA6D9 /* LaunchScreen.storyboard */; };
-		0423BC4D1DD7150E0025B77B /* Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0423BC4C1DD7150E0025B77B /* Meal.swift */; };
-		0423BC4F1DD722F60025B77B /* MealTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0423BC4E1DD722F60025B77B /* MealTableViewController.swift */; };
 		043017231DD2A1DE009AE8B7 /* ConversationV1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 043017221DD2A1DE009AE8B7 /* ConversationV1.framework */; };
 		043017251DD2A1F0009AE8B7 /* RestKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 043017241DD2A1F0009AE8B7 /* RestKit.framework */; };
 		E2E3E17DCD10D945F0FA50A8 /* Pods_MenuMate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D3ED9F7D019DD18A45437BD /* Pods_MenuMate.framework */; };
@@ -27,8 +25,6 @@
 		04001FF61DCFFB72001DA6D9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04001FF91DCFFB72001DA6D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		04001FFB1DCFFB72001DA6D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0423BC4C1DD7150E0025B77B /* Meal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
-		0423BC4E1DD722F60025B77B /* MealTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealTableViewController.swift; sourceTree = "<group>"; };
 		043017221DD2A1DE009AE8B7 /* ConversationV1.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ConversationV1.framework; path = Carthage/Build/iOS/ConversationV1.framework; sourceTree = "<group>"; };
 		043017241DD2A1F0009AE8B7 /* RestKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RestKit.framework; path = Carthage/Build/iOS/RestKit.framework; sourceTree = "<group>"; };
 		04B5052A1DD6F937005FD3B7 /* SwiftCloudant */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SwiftCloudant; path = Pods/SwiftCloudant/Source/SwiftCloudant; sourceTree = "<group>"; };
@@ -54,8 +50,6 @@
 		04001FE31DCFFB72001DA6D9 = {
 			isa = PBXGroup;
 			children = (
-				0423BC4E1DD722F60025B77B /* MealTableViewController.swift */,
-				0423BC4C1DD7150E0025B77B /* Meal.swift */,
 				04B5052A1DD6F937005FD3B7 /* SwiftCloudant */,
 				04001FEE1DCFFB72001DA6D9 /* MenuMate */,
 				04001FED1DCFFB72001DA6D9 /* Products */,
@@ -244,8 +238,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				04001FF21DCFFB72001DA6D9 /* ViewController.swift in Sources */,
-				0423BC4D1DD7150E0025B77B /* Meal.swift in Sources */,
-				0423BC4F1DD722F60025B77B /* MealTableViewController.swift in Sources */,
 				04001FF01DCFFB72001DA6D9 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

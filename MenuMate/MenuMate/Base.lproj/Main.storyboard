@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -18,29 +19,38 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="MenuMate" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0fz-Qt-X4D">
-                                <frame key="frameInset" minX="120" minY="28" width="135" height="42"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MenuMate" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0fz-Qt-X4D">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="135" id="M7M-oP-clF"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="29"/>
                                 <color key="textColor" red="0.97665933905719315" green="0.99386111312634207" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="What are you hungry for?" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="LCL-gn-USs" propertyAccessControl="none">
-                                <frame key="frameInset" minX="52" minY="78" width="270" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="What are you hungry for?" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="LCL-gn-USs" propertyAccessControl="none">
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" enablesReturnKeyAutomatically="YES"/>
                             </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Here is the food that you can get!" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zq3-uV-e7V">
-                                <frame key="frameInset" minX="38" minY="144" width="304" height="485"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Here is the food that you can get!" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zq3-uV-e7V">
+                                <color key="backgroundColor" red="0.0" green="0.84658354922279799" blue="0.25914572425178867" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" red="0.19401350075412094" green="0.57413779145077726" blue="0.15848320268121735" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="LCL-gn-USs" firstAttribute="top" secondItem="0fz-Qt-X4D" secondAttribute="bottom" constant="8" symbolic="YES" id="1XF-Ya-YDN"/>
+                            <constraint firstItem="0fz-Qt-X4D" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="CDv-KR-9tU"/>
+                            <constraint firstItem="LCL-gn-USs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="36" id="Dhm-f3-LzG"/>
+                            <constraint firstItem="0fz-Qt-X4D" firstAttribute="centerX" secondItem="LCL-gn-USs" secondAttribute="centerX" id="FeI-hO-Phf"/>
+                            <constraint firstItem="Zq3-uV-e7V" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="22" id="GFO-cZ-Qh4"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Zq3-uV-e7V" secondAttribute="trailing" constant="17" id="K0g-aw-JY0"/>
+                            <constraint firstItem="Zq3-uV-e7V" firstAttribute="top" secondItem="LCL-gn-USs" secondAttribute="bottom" constant="36" id="Mu5-IM-Ex1"/>
+                            <constraint firstItem="LCL-gn-USs" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="QdJ-Jj-cUO"/>
+                            <constraint firstItem="LCL-gn-USs" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="78" id="eOR-0h-J7a"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Zq3-uV-e7V" secondAttribute="bottom" constant="38" id="i5s-WP-zh3"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="resultsText" destination="Zq3-uV-e7V" id="qz2-V5-oNY"/>
