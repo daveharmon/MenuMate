@@ -18,6 +18,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate 
     @IBOutlet var searchField: UITextField!
     
     var meals: [String] = []
+    var lock: Bool = true
     @IBOutlet var resultsText: UITextView!
 
     var query: String = ""      //the string of the query, initially null
@@ -71,8 +72,16 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate 
             if (searchField.text != nil){
                 query=searchField.text!
                 converse()
-                self.resultsText.text=self.toPrint
+                while (self.lock == true) {
+                    print("spin");
+                }
+                if (self.meals == []) {
+                    self.resultsText.text = self.toPrint
+                } else {
+                    self.resultsText.text=self.meals.joined(separator: ", \n")
+                }
                 self.resultsText.setNeedsDisplay()
+                self.lock = true
                 print(query)
             }
         default:
@@ -106,7 +115,6 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate 
             let failure = { (error: Error) in print(error) }
             
             var context:Context?;
-            var toPrint:[String]=[]
             
             let request = MessageRequest(text: text, context: context)
             conversation.message(withWorkspace: workspaceID, request: request, failure: failure, success:{ response in
@@ -116,6 +124,13 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate 
                 var day:String="";
                 var meal:String="";
                 
+                
+                //handle the case where Watson doesn't pick up on the keywords
+                if (response.entities.count != 2 && response.intents.count != 1){
+                    self.toPrint = "Watson could not find your input"
+                    self.lock = false
+                    return
+                }
                 //handle the entities
                 for entity in response.entities {
                     if (entity.entity=="station"){
@@ -133,23 +148,27 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate 
                 let cloudantURL = URL(string:"https://0fc1924a-e31c-46ad-ba50-13fc5400577e-bluemix.cloudant.com")!
                 let client = CouchDBClient(url:cloudantURL, username:"0fc1924a-e31c-46ad-ba50-13fc5400577e-bluemix", password:"9f4054a1e8f0c1dd4ddadc7ed61d234eb9a463c95a86084ba8eb7b22151caaae")
                 let dbName = "fooddata"
-                
                 let find = FindDocumentsOperation(selector: ["day":day, "meal":meal,"station":station], databaseName: dbName, fields: ["items"], documentFoundHandler: {(dict) in
                     
-                    print("COMING HERE>>>>>>>>>>>>>>>>>>>>")
-//                    print(dict.debugDescription)
-//                    for current in dict["items"] as! [String]{
-//                        print(current)
-//                    }
-//                    
-//                    toPrint.append(contentsOf: (dict["items"] as! [String]))
-                })
-               
+                    self.meals = dict["items"] as! [String]
+                    self.lock = false;
+                
+                }) {(response, httpInfo, error) in
+                    if let error = error {
+                        self.meals = []
+                        self.toPrint = error.localizedDescription
+                        self.lock = false;
+                    } else if (self.lock != false) {
+                        self.meals = []
+                        self.toPrint = "Document not found"
+                        self.lock = false;
+                        print("success")
+                    }
+                }
                 
                 client.add(operation: find)
                 context = response.context
             })
-            self.toPrint=toPrint.joined(separator: ",")
         }
     }
 }
